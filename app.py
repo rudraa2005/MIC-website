@@ -24,6 +24,8 @@ app.config['SQLALCHEMY_ENGINE_OPTIONS'] = {
     'pool_recycle': 300,
 }
 
+backend_path = Path(__file__).parent / "backend"
+sys.path.insert(0, str(backend_path))
 # Import db from models
 from models import db, Event, Resource, Contact, Newsletter, ChatSession, ChatMessage
 

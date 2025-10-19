@@ -12,8 +12,8 @@ sys.path.insert(0, str(BASE_DIR))
 
 # Initialize Flask app with explicit paths
 app = Flask(__name__,
-            template_folder=os.path.join(BASE_DIR, 'templates'),
-            static_folder=os.path.join(BASE_DIR, 'static'))
+            template_folder=os.path.join(BASE_DIR, 'backend', 'templates'),
+            static_folder=os.path.join(BASE_DIR, 'backend', 'static'))
 
 # Configuration
 app.config['SECRET_KEY'] = os.environ.get('SECRET_KEY', 'dev-secret-key-change-in-production')

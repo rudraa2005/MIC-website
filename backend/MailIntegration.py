@@ -65,29 +65,21 @@ class ProfessionalEmailSender:
         
         self.gmail_service = None
         self._authenticate_gmail()
-    import json, os
-from google.auth.transport.requests import Request
-from google.oauth2.credentials import Credentials
-from google_auth_oauthlib.flow import InstalledAppFlow
-from googleapiclient.discovery import build
-
-SCOPES = ['https://www.googleapis.com/auth/gmail.send']
-
-class ProfessionalEmailSender:
-    def _authenticate_gmail(self):
+    
+   def _authenticate_gmail(self):
         """Authenticate with Gmail using OAuth2 (Render-compatible)."""
         creds = None
         token_path = "token.json"
         credentials_path = "credentials.json"
 
-        if os.getenv("GOOGLE_CREDENTIALS_JSON"):
+        if os.getenv("GOOGLE_CREDENTIALS"):
             with open(credentials_path, "w") as f:
-                f.write(os.getenv("GOOGLE_CREDENTIALS_JSON"))
+                f.write(os.getenv("GOOGLE_CREDENTIALS"))
             print("✓ credentials.json written from Render environment variable")
 
-        if os.getenv("TOKEN_JSON"):
+        if os.getenv("GOOGLE_TOKEN"):
             with open(token_path, "w") as f:
-                f.write(os.getenv("TOKEN_JSON"))
+                f.write(os.getenv("GOOGLE_TOKEN"))
             print("✓ token.json written from Render environment variable")
 
         if os.path.exists(token_path):
@@ -106,7 +98,7 @@ class ProfessionalEmailSender:
 
         self.gmail_service = build("gmail", "v1", credentials=creds)
         print("✅ Successfully authenticated with Gmail")
-
+    
     def generate_email_content(self, context, additional_instructions=""):
         """
         Generate professional email content using Groq AI

@@ -335,20 +335,21 @@
     </div>
   </footer>
 
-  <script>
-    // Mobile menu toggle
-    document.getElementById("menu-btn").addEventListener("click", () => {
-      const menu = document.getElementById("mobile-menu");
-      menu.classList.toggle("hidden");
-    });
-    
-  // Close menu when a link is clicked
+<script>
+  const menuBtn = document.getElementById("menu-btn");
+  const mobileMenu = document.getElementById("mobile-menu");
+  const links = mobileMenu.querySelectorAll("a");
+
+  menuBtn.addEventListener("click", () => {
+    mobileMenu.classList.toggle("hidden");
+  });
+
   links.forEach(link => {
     link.addEventListener("click", () => {
       mobileMenu.classList.add("hidden");
     });
   });
-  </script>
+</script>
 
   <script src="{{ url_for('static', filename='js/tailwind-script.js') }}"></script>
   <script src="{{ url_for('static', filename='js/api-integration.js') }}"></script>

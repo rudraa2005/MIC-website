@@ -67,26 +67,38 @@ class ProfessionalEmailSender:
         self._authenticate_gmail()
     
     def _authenticate_gmail(self):
-        """Authenticate with Gmail using OAuth2"""
+      def _authenticate_gmail(self):
+        """Authenticate with Gmail using OAuth2 (Render-compatible)."""
         creds = None
-        token_path = 'token.json'
-        
+        token_path = "token.json"
+        credentials_path = "credentials.json"
+
+        if os.getenv("GOOGLE_CREDENTIALS"):
+            with open(credentials_path, "w") as f:
+                f.write(os.getenv("GOOGLE_CREDENTIALS"))
+            print("✓ credentials.json written from Render environment variable")
+
+        if os.getenv("GOOGLE_TOKEN"):
+            with open(token_path, "w") as f:
+                f.write(os.getenv("GOOGLE_TOKEN"))
+            print("✓ token.json written from Render environment variable")
+
         if os.path.exists(token_path):
             creds = Credentials.from_authorized_user_file(token_path, SCOPES)
-        
+
         if not creds or not creds.valid:
             if creds and creds.expired and creds.refresh_token:
                 creds.refresh(Request())
+                print("🔄 Token refreshed successfully")
             else:
-                flow = InstalledAppFlow.from_client_secrets_file(
-                    self.credentials_file, SCOPES)
+                flow = InstalledAppFlow.from_client_secrets_file(credentials_path, SCOPES)
                 creds = flow.run_local_server(port=0)
-            
-            with open(token_path, 'w') as token:
-                token.write(creds.to_json())
-        
-        self.gmail_service = build('gmail', 'v1', credentials=creds)
-        print("✓ Successfully authenticated with Gmail")
+                with open(token_path, "w") as token:
+                    token.write(creds.to_json())
+                    print("💾 New token.json saved locally")
+
+        self.gmail_service = build("gmail", "v1", credentials=creds)
+        print("✅ Successfully authenticated with Gmail")
     
     def generate_email_content(self, context, additional_instructions=""):
         """

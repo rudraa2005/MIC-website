@@ -76,35 +76,37 @@
       <div class="w-8 h-8 rounded-lg overflow-hidden">
         <img src="{{ url_for('static', filename='uploads/Screenshot_2025-10-19_at_3.19.09_PM_50.png') }}" alt="MAHE Logo" class="w-full h-full object-contain p-0.5">
       </div>
-      <span class="text-black font-semibold text-lg">MAHE</span>
+      <span class="text-white font-semibold text-lg">MAHE</span>
     </div>
 
     <!-- Desktop Nav -->
     <div class="hidden md:flex items-center space-x-8">
-      <a href="{{ url_for('main.index') }}#home" class="nav-link relative text-black hover:text-orange-primary font-medium">Home</a>
-      <a href="{{ url_for('main.about') }}" class="nav-link relative text-black hover:text-orange-primary font-medium">About</a>
-      <a href="{{ url_for('main.events') }}" class="nav-link relative text-black hover:text-orange-primary font-medium">Events</a>
-      <a href="{{ url_for('main.resources') }}" class="nav-link relative text-black hover:text-orange-primary font-medium">Resources</a>
-      <a href="{{ url_for('main.contact') }}" class="nav-link relative text-black hover:text-orange-primary font-medium">Contact</a>
+      <a href="{{ url_for('main.index') }}#home" class="nav-link relative text-white hover:text-orange-primary font-medium">Home</a>
+      <a href="{{ url_for('main.about') }}" class="nav-link relative text-white hover:text-orange-primary font-medium">About</a>
+      <a href="{{ url_for('main.events') }}" class="nav-link relative text-white hover:text-orange-primary font-medium">Events</a>
+      <a href="{{ url_for('main.resources') }}" class="nav-link relative text-white hover:text-orange-primary font-medium">Resources</a>
+      <a href="{{ url_for('main.contact') }}" class="nav-link relative text-white hover:text-orange-primary font-medium">Contact</a>
     </div>
 
     <!-- Mobile Menu Button -->
-    <button id="menu-btn" class="md:hidden text-black hover:text-orange-primary transition focus:outline-none">
-      <i id="menu-icon" class="fas fa-bars text-xl"></i>
+    <button id="menu-btn" class="md:hidden text-white hover:text-orange-primary transition">
+      <i class="fas fa-bars text-xl"></i>
     </button>
   </div>
 
-<!-- Mobile Dropdown -->
-<div
-  id="mobile-menu"
-  class="hidden absolute top-full left-0 w-full liquid-glass rounded-2xl shadow-lg py-4 px-6 space-y-3 mt-2"
->
-  <a href="{{ url_for('main.index') }}#home" class="block text-black hover:text-orange-primary font-medium py-2">Home</a>
-  <a href="{{ url_for('main.about') }}" class="block text-black hover:text-orange-primary font-medium py-2">About</a>
-  <a href="{{ url_for('main.events') }}" class="block text-black hover:text-orange-primary font-medium py-2">Events</a>
-  <a href="{{ url_for('main.resources') }}" class="block text-black hover:text-orange-primary font-medium py-2">Resources</a>
-  <a href="{{ url_for('main.contact') }}" class="block text-black hover:text-orange-primary font-medium py-2">Contact</a>
-</div>
+  <!-- Mobile Dropdown -->
+  <div
+    id="mobile-menu"
+    class="hidden md:hidden flex-col absolute top-full left-0 w-full bg-[#0b0c10]/95 backdrop-blur-xl border border-white/10 rounded-2xl shadow-lg py-4 px-6 space-y-3 mt-2 transition-all duration-300 ease-in-out"
+  >
+    <a href="{{ url_for('main.index') }}#home" class="block text-white hover:text-orange-primary font-medium">Home</a>
+    <a href="{{ url_for('main.about') }}" class="block text-white hover:text-orange-primary font-medium">About</a>
+    <a href="{{ url_for('main.events') }}" class="block text-white hover:text-orange-primary font-medium">Events</a>
+    <a href="{{ url_for('main.resources') }}" class="block text-white hover:text-orange-primary font-medium">Resources</a>
+    <a href="{{ url_for('main.contact') }}" class="block text-white hover:text-orange-primary font-medium">Contact</a>
+  </div>
+</nav>
+
   <!-- Hero Section -->
   <section id="home" class="min-h-screen flex items-center bg-gradient-to-br from-gray-50 to-gray-100 relative overflow-hidden pt-20 md:pt-8">
     <div class="absolute top-20 left-10 w-40 sm:w-64 h-40 sm:h-64 bg-orange-primary opacity-10 rounded-full blur-3xl"></div>

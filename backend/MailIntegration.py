@@ -149,6 +149,7 @@ BODY:
                             "Write SHORT, warm, and friendly emails that feel natural and conversational. "
                             "Keep it brief (3–5 sentences max). Avoid corporate jargon or overly formal language. "
                             "Be genuine and human. Always include a natural greeting and sign-off."
+                            "Make it so that the email sent is spam proof i.e. the mail app doesnt sent the mail to the spam folder automatically hence use words to protect it from getting sent to spam folder automatically"
                         ),
                     },
                     {"role": "user", "content": prompt},

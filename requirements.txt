@@ -11,3 +11,6 @@ Pillow==11.0.0
 email-validator==2.2.0
 whitenoise==6.8.2
 groq
+google-api-python-client==2.153.0
+google-auth==2.35.0
+google-auth-oauthlib==1.2.1

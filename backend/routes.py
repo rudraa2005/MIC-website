@@ -1,4 +1,5 @@
 from flask import Blueprint, render_template, request, jsonify
+from sqlalchemy.exc import IntegrityError
 import sys
 from pathlib import Path
 
@@ -8,6 +9,8 @@ if str(parent_dir) not in sys.path:
     sys.path.insert(0, str(parent_dir))
 
 from models import Event, Resource, Contact, Newsletter, db
+from backend.MailIntegration import ProfessionalEmailSender
+import threading
 from datetime import datetime
 
 # Import ChatBot with error handling
@@ -22,6 +25,9 @@ except ImportError as e:
 main_bp = Blueprint('main', __name__)
 api_bp = Blueprint('api', __name__)
 admin_bp = Blueprint('admin', __name__)
+
+# Initialize mail sender (lazy instantiate to avoid import issues)
+email_sender = ProfessionalEmailSender()
 
 # Main routes
 @main_bp.route('/')
@@ -81,6 +87,29 @@ def create_event():
     db.session.add(event)
     db.session.commit()
     
+    # Announce event to active newsletter subscribers in background
+    def announce_event_async(new_event_id: int):
+        try:
+            new_event = Event.query.get(new_event_id)
+            if not new_event:
+                return
+            subscribers = Newsletter.query.filter_by(is_active=True).all()
+            for subscriber in subscribers:
+                try:
+                    email_sender.send_event_announcement(
+                        recipient_email=subscriber.email,
+                        event_title=new_event.title,
+                        event_date=new_event.date.isoformat() if new_event.date else None,
+                        location=new_event.location,
+                        description=new_event.description
+                    )
+                except Exception as e:
+                    print(f"Failed to send event email to {subscriber.email}: {e}")
+        except Exception as e:
+            print(f"Event announcement worker error: {e}")
+
+    threading.Thread(target=announce_event_async, args=(event.id,), daemon=True).start()
+
     return jsonify(event.to_dict()), 201
 
 @api_bp.route('/resources', methods=['GET'])
@@ -133,15 +162,25 @@ def subscribe_newsletter():
     existing = Newsletter.query.filter_by(email=email).first()
     if existing:
         if existing.is_active:
-            return jsonify({'message': 'Email already subscribed'}), 400
+            return jsonify({'message': 'Already subscribed'}), 200
         else:
             existing.is_active = True
             db.session.commit()
-            return jsonify({'message': 'Resubscribed successfully'})
+            # Send welcome email on resubscribe (background)
+            threading.Thread(target=email_sender.send_welcome_email, args=(email,), daemon=True).start()
+            return jsonify({'message': 'Resubscribed successfully'}), 200
     
     newsletter = Newsletter(email=email)
     db.session.add(newsletter)
-    db.session.commit()
+    try:
+        db.session.commit()
+    except IntegrityError:
+        db.session.rollback()
+        # Another request likely inserted concurrently; treat as idempotent success
+        return jsonify({'message': 'Already subscribed'}), 200
+    
+    # Send welcome email in background
+    threading.Thread(target=email_sender.send_welcome_email, args=(email,), daemon=True).start()
     
     return jsonify({'message': 'Successfully subscribed to newsletter'}), 201
 
@@ -229,3 +268,4 @@ def admin_newsletter():
     """Admin newsletter management"""
     subscribers = Newsletter.query.filter_by(is_active=True).order_by(Newsletter.subscribed_at.desc()).all()
     return render_template('admin/newsletter.html', subscribers=subscribers)
+late('admin/newsletter.html', subscribers=subscribers)

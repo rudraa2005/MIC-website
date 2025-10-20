@@ -268,4 +268,3 @@ def admin_newsletter():
     """Admin newsletter management"""
     subscribers = Newsletter.query.filter_by(is_active=True).order_by(Newsletter.subscribed_at.desc()).all()
     return render_template('admin/newsletter.html', subscribers=subscribers)
-late('admin/newsletter.html', subscribers=subscribers)

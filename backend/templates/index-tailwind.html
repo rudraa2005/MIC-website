@@ -94,18 +94,17 @@
     </button>
   </div>
 
-  <!-- Mobile Dropdown -->
-  <div
-    id="mobile-menu"
-    class="hidden absolute top-full left-0 w-full liquid-glass rounded-2xl shadow-lg py-4 px-6 space-y-3 mt-2"
-  >
-    <a href="{{ url_for('main.index') }}#home" class="block text-black hover:text-orange-primary font-medium py-2 transition-colors">Home</a>
-    <a href="{{ url_for('main.about') }}" class="block text-black hover:text-orange-primary font-medium py-2 transition-colors">About</a>
-    <a href="{{ url_for('main.events') }}" class="block text-black hover:text-orange-primary font-medium py-2 transition-colors">Events</a>
-    <a href="{{ url_for('main.resources') }}" class="block text-black hover:text-orange-primary font-medium py-2 transition-colors">Resources</a>
-    <a href="{{ url_for('main.contact') }}" class="block text-black hover:text-orange-primary font-medium py-2 transition-colors">Contact</a>
-  </div>
-</nav>
+<!-- Mobile Dropdown -->
+<div
+  id="mobile-menu"
+  class="hidden absolute top-full left-0 w-full liquid-glass rounded-2xl shadow-lg py-4 px-6 space-y-3 mt-2"
+>
+  <a href="{{ url_for('main.index') }}#home" class="block text-black hover:text-orange-primary font-medium py-2">Home</a>
+  <a href="{{ url_for('main.about') }}" class="block text-black hover:text-orange-primary font-medium py-2">About</a>
+  <a href="{{ url_for('main.events') }}" class="block text-black hover:text-orange-primary font-medium py-2">Events</a>
+  <a href="{{ url_for('main.resources') }}" class="block text-black hover:text-orange-primary font-medium py-2">Resources</a>
+  <a href="{{ url_for('main.contact') }}" class="block text-black hover:text-orange-primary font-medium py-2">Contact</a>
+</div>
   <!-- Hero Section -->
   <section id="home" class="min-h-screen flex items-center bg-gradient-to-br from-gray-50 to-gray-100 relative overflow-hidden pt-20 md:pt-8">
     <div class="absolute top-20 left-10 w-40 sm:w-64 h-40 sm:h-64 bg-orange-primary opacity-10 rounded-full blur-3xl"></div>

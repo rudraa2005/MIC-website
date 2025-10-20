@@ -68,7 +68,7 @@
 
 <body class="bg-gray-50 font-inter overflow-x-hidden">
 
-  <!-- Navbar -->
+ <!-- Navbar -->
 <nav class="fixed top-4 left-1/2 transform -translate-x-1/2 z-50 w-11/12 max-w-6xl">
   <div class="liquid-glass rounded-full px-6 py-3 flex justify-between items-center relative">
     <!-- Logo -->
@@ -81,11 +81,11 @@
 
     <!-- Desktop Nav -->
     <div class="hidden md:flex items-center space-x-8">
-      <a href="{{ url_for('main.index') }}#home" class="nav-link relative text-black hover:text-orange-primary font-medium">Home</a>
-      <a href="{{ url_for('main.about') }}" class="nav-link relative text-black hover:text-orange-primary font-medium">About</a>
-      <a href="{{ url_for('main.events') }}" class="nav-link relative text-black hover:text-orange-primary font-medium">Events</a>
-      <a href="{{ url_for('main.resources') }}" class="nav-link relative text-black hover:text-orange-primary font-medium">Resources</a>
-      <a href="{{ url_for('main.contact') }}" class="nav-link relative text-black hover:text-orange-primary font-medium">Contact</a>
+      <a href="{{ url_for('main.index') }}#home" class="nav-link relative text-white hover:text-orange-primary font-medium">Home</a>
+      <a href="{{ url_for('main.about') }}" class="nav-link relative text-white hover:text-orange-primary font-medium">About</a>
+      <a href="{{ url_for('main.events') }}" class="nav-link relative text-white hover:text-orange-primary font-medium">Events</a>
+      <a href="{{ url_for('main.resources') }}" class="nav-link relative text-white hover:text-orange-primary font-medium">Resources</a>
+      <a href="{{ url_for('main.contact') }}" class="nav-link relative text-white hover:text-orange-primary font-medium">Contact</a>
     </div>
 
     <!-- Mobile Menu Button -->
@@ -97,13 +97,13 @@
   <!-- Mobile Dropdown -->
   <div
     id="mobile-menu"
-    class="hidden absolute top-full left-0 w-full bg-gray-900/95 backdrop-blur-xl border border-white/10 rounded-2xl shadow-lg py-4 px-6 space-y-3 mt-2 transition-all duration-300 ease-in-out"
+    class="hidden md:hidden flex-col absolute top-full left-0 w-full bg-[#0b0c10]/95 backdrop-blur-xl border border-white/10 rounded-2xl shadow-lg py-4 px-6 space-y-3 mt-2 transition-all duration-300 ease-in-out"
   >
-    <a href="{{ url_for('main.index') }}#home" class="block text-black hover:text-orange-primary font-medium">Home</a>
-    <a href="{{ url_for('main.about') }}" class="block text-black hover:text-orange-primary font-medium">About</a>
-    <a href="{{ url_for('main.events') }}" class="block text-black hover:text-orange-primary font-medium">Events</a>
-    <a href="{{ url_for('main.resources') }}" class="block text-black hover:text-orange-primary font-medium">Resources</a>
-    <a href="{{ url_for('main.contact') }}" class="block text-black hover:text-orange-primary font-medium">Contact</a>
+    <a href="{{ url_for('main.index') }}#home" class="block text-white hover:text-orange-primary font-medium">Home</a>
+    <a href="{{ url_for('main.about') }}" class="block text-white hover:text-orange-primary font-medium">About</a>
+    <a href="{{ url_for('main.events') }}" class="block text-white hover:text-orange-primary font-medium">Events</a>
+    <a href="{{ url_for('main.resources') }}" class="block text-white hover:text-orange-primary font-medium">Resources</a>
+    <a href="{{ url_for('main.contact') }}" class="block text-white hover:text-orange-primary font-medium">Contact</a>
   </div>
 </nav>
   <!-- Hero Section -->

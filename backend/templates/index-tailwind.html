@@ -68,7 +68,8 @@
 
 <body class="bg-gray-50 font-inter overflow-x-hidden">
 
-<!-- Navbar -->
+  <!-- Navbar -->
+  <!-- Navbar -->
 <nav class="fixed top-4 left-1/2 transform -translate-x-1/2 z-50 w-11/12 max-w-6xl">
   <div class="liquid-glass rounded-full px-6 py-3 flex justify-between items-center relative">
     <!-- Logo -->
@@ -76,24 +77,52 @@
       <div class="w-8 h-8 rounded-lg overflow-hidden">
         <img src="{{ url_for('static', filename='uploads/Screenshot_2025-10-19_at_3.19.09_PM_50.png') }}" alt="MAHE Logo" class="w-full h-full object-contain p-0.5">
       </div>
-      <span class="text-white font-semibold text-lg">MAHE</span>
+      <span class="text-gray-800 font-semibold text-lg">MAHE</span>
     </div>
 
     <!-- Desktop Nav -->
     <div class="hidden md:flex items-center space-x-8">
-      <a href="{{ url_for('main.index') }}#home" class="nav-link relative text-white hover:text-orange-primary font-medium">Home</a>
-      <a href="{{ url_for('main.about') }}" class="nav-link relative text-white hover:text-orange-primary font-medium">About</a>
-      <a href="{{ url_for('main.events') }}" class="nav-link relative text-white hover:text-orange-primary font-medium">Events</a>
-      <a href="{{ url_for('main.resources') }}" class="nav-link relative text-white hover:text-orange-primary font-medium">Resources</a>
-      <a href="{{ url_for('main.contact') }}" class="nav-link relative text-white hover:text-orange-primary font-medium">Contact</a>
+      <a href="{{ url_for('main.index') }}#home" class="nav-link relative text-gray-700 hover:text-orange-primary font-medium">Home</a>
+      <a href="{{ url_for('main.about') }}" class="nav-link relative text-gray-700 hover:text-orange-primary font-medium">About</a>
+      <a href="{{ url_for('main.events') }}" class="nav-link relative text-gray-700 hover:text-orange-primary font-medium">Events</a>
+      <a href="{{ url_for('main.resources') }}" class="nav-link relative text-gray-700 hover:text-orange-primary font-medium">Resources</a>
+      <a href="{{ url_for('main.contact') }}" class="nav-link relative text-gray-700 hover:text-orange-primary font-medium">Contact</a>
     </div>
 
     <!-- Mobile Menu Button -->
-    <button id="menu-btn" class="md:hidden text-white hover:text-orange-primary transition">
+    <button id="menu-btn" class="md:hidden text-gray-700 hover:text-orange-primary transition">
       <i class="fas fa-bars text-xl"></i>
     </button>
   </div>
 
+  <!-- Mobile Dropdown -->
+  <div id="mobile-menu"
+       class="hidden flex-col mt-2 w-full bg-white/80 backdrop-blur-xl border border-white/30 rounded-2xl shadow-lg py-4 px-6 space-y-3 transition-all duration-300 ease-in-out">
+    <a href="{{ url_for('main.index') }}#home" class="block text-gray-700 hover:text-orange-primary font-medium">Home</a>
+    <a href="{{ url_for('main.about') }}" class="block text-gray-700 hover:text-orange-primary font-medium">About</a>
+    <a href="{{ url_for('main.events') }}" class="block text-gray-700 hover:text-orange-primary font-medium">Events</a>
+    <a href="{{ url_for('main.resources') }}" class="block text-gray-700 hover:text-orange-primary font-medium">Resources</a>
+    <a href="{{ url_for('main.contact') }}" class="block text-gray-700 hover:text-orange-primary font-medium">Contact</a>
+  </div>
+</nav>
+
+<script>
+  const menuBtn = document.getElementById("menu-btn");
+  const mobileMenu = document.getElementById("mobile-menu");
+
+  menuBtn.addEventListener("click", () => {
+    const isOpen = !mobileMenu.classList.contains("hidden");
+    if (isOpen) {
+      mobileMenu.classList.add("hidden");
+      mobileMenu.classList.remove("opacity-100", "translate-y-0");
+    } else {
+      mobileMenu.classList.remove("hidden");
+      setTimeout(() => {
+        mobileMenu.classList.add("opacity-100", "translate-y-0");
+      }, 10);
+    }
+  });
+</script>
   <!-- Hero Section -->
   <section id="home" class="min-h-screen flex items-center bg-gradient-to-br from-gray-50 to-gray-100 relative overflow-hidden pt-20 md:pt-8">
     <div class="absolute top-20 left-10 w-40 sm:w-64 h-40 sm:h-64 bg-orange-primary opacity-10 rounded-full blur-3xl"></div>
@@ -323,39 +352,13 @@
     </div>
   </footer>
 
-<script>
-  const menuBtn = document.getElementById("menu-btn");
-  const mobileMenu = document.getElementById("mobile-menu");
-  const menuIcon = document.getElementById("menu-icon");
-  const links = mobileMenu.querySelectorAll("a");
-
-  menuBtn.addEventListener("click", (e) => {
-    e.stopPropagation();
-    const isHidden = mobileMenu.classList.toggle("hidden");
-    
-    // Toggle icon between bars and times (X)
-    if (!isHidden) {
-      menuIcon.classList.replace("fa-bars", "fa-times");
-    } else {
-      menuIcon.classList.replace("fa-times", "fa-bars");
-    }
-  });
-
-  links.forEach(link => {
-    link.addEventListener("click", () => {
-      mobileMenu.classList.add("hidden");
-      menuIcon.classList.replace("fa-times", "fa-bars");
+  <script>
+    // Mobile menu toggle
+    document.getElementById("menu-btn").addEventListener("click", () => {
+      const menu = document.getElementById("mobile-menu");
+      menu.classList.toggle("hidden");
     });
-  });
-
-  // Close on outside click
-  document.addEventListener("click", (e) => {
-    if (!mobileMenu.contains(e.target) && !menuBtn.contains(e.target)) {
-      mobileMenu.classList.add("hidden");
-      menuIcon.classList.replace("fa-times", "fa-bars");
-    }
-  });
-</script>
+  </script>
 
   <script src="{{ url_for('static', filename='js/tailwind-script.js') }}"></script>
   <script src="{{ url_for('static', filename='js/api-integration.js') }}"></script>

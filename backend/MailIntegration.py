@@ -5,6 +5,7 @@ from email.mime.multipart import MIMEMultipart
 from email.mime.base import MIMEBase
 from email import encoders
 import os
+import json
 import base64
 from pathlib import Path
 from groq import Groq

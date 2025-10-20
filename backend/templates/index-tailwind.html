@@ -68,7 +68,7 @@
 
 <body class="bg-gray-50 font-inter overflow-x-hidden">
 
- <!-- Navbar -->
+<!-- Navbar -->
 <nav class="fixed top-4 left-1/2 transform -translate-x-1/2 z-50 w-11/12 max-w-6xl">
   <div class="liquid-glass rounded-full px-6 py-3 flex justify-between items-center relative">
     <!-- Logo -->
@@ -89,21 +89,21 @@
     </div>
 
     <!-- Mobile Menu Button -->
-    <button id="menu-btn" class="md:hidden text-black hover:text-orange-primary transition">
-      <i class="fas fa-bars text-xl"></i>
+    <button id="menu-btn" class="md:hidden text-black hover:text-orange-primary transition focus:outline-none">
+      <i id="menu-icon" class="fas fa-bars text-xl"></i>
     </button>
   </div>
 
   <!-- Mobile Dropdown -->
   <div
     id="mobile-menu"
-    class="hidden md:hidden flex-col absolute top-full left-0 w-full bg-[#0b0c10]/95 backdrop-blur-xl border border-white/10 rounded-2xl shadow-lg py-4 px-6 space-y-3 mt-2 transition-all duration-300 ease-in-out"
+    class="hidden absolute top-full left-0 w-full liquid-glass rounded-2xl shadow-lg py-4 px-6 space-y-3 mt-2"
   >
-    <a href="{{ url_for('main.index') }}#home" class="block text-black hover:text-orange-primary font-medium">Home</a>
-    <a href="{{ url_for('main.about') }}" class="block text-black hover:text-orange-primary font-medium">About</a>
-    <a href="{{ url_for('main.events') }}" class="block text-black hover:text-orange-primary font-medium">Events</a>
-    <a href="{{ url_for('main.resources') }}" class="block text-black hover:text-orange-primary font-medium">Resources</a>
-    <a href="{{ url_for('main.contact') }}" class="block text-black hover:text-orange-primary font-medium">Contact</a>
+    <a href="{{ url_for('main.index') }}#home" class="block text-black hover:text-orange-primary font-medium py-2 transition-colors">Home</a>
+    <a href="{{ url_for('main.about') }}" class="block text-black hover:text-orange-primary font-medium py-2 transition-colors">About</a>
+    <a href="{{ url_for('main.events') }}" class="block text-black hover:text-orange-primary font-medium py-2 transition-colors">Events</a>
+    <a href="{{ url_for('main.resources') }}" class="block text-black hover:text-orange-primary font-medium py-2 transition-colors">Resources</a>
+    <a href="{{ url_for('main.contact') }}" class="block text-black hover:text-orange-primary font-medium py-2 transition-colors">Contact</a>
   </div>
 </nav>
   <!-- Hero Section -->
@@ -338,16 +338,34 @@
 <script>
   const menuBtn = document.getElementById("menu-btn");
   const mobileMenu = document.getElementById("mobile-menu");
+  const menuIcon = document.getElementById("menu-icon");
   const links = mobileMenu.querySelectorAll("a");
 
-  menuBtn.addEventListener("click", () => {
-    mobileMenu.classList.toggle("hidden");
+  menuBtn.addEventListener("click", (e) => {
+    e.stopPropagation();
+    const isHidden = mobileMenu.classList.toggle("hidden");
+    
+    // Toggle icon between bars and times (X)
+    if (!isHidden) {
+      menuIcon.classList.replace("fa-bars", "fa-times");
+    } else {
+      menuIcon.classList.replace("fa-times", "fa-bars");
+    }
   });
 
   links.forEach(link => {
     link.addEventListener("click", () => {
       mobileMenu.classList.add("hidden");
+      menuIcon.classList.replace("fa-times", "fa-bars");
     });
+  });
+
+  // Close on outside click
+  document.addEventListener("click", (e) => {
+    if (!mobileMenu.contains(e.target) && !menuBtn.contains(e.target)) {
+      mobileMenu.classList.add("hidden");
+      menuIcon.classList.replace("fa-times", "fa-bars");
+    }
   });
 </script>
 
